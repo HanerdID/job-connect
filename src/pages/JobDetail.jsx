@@ -1,6 +1,8 @@
 // src/pages/JobDetail.jsx
-import { useParams, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import Badge from "../components/atoms/Badge";
+import Button from "../components/atoms/Button";
 import { jobs } from "../data/jobs";
 
 const JobDetail = () => {
@@ -16,16 +18,16 @@ const JobDetail = () => {
   if (!job) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
-        <div className="card p-8 max-w-lg mx-auto">
-          <h2 className="text-2xl font-bold mb-4 text-dark-teal">
+        <div className="bg-[#FAF9F6] p-8 rounded-xl shadow-card max-w-lg mx-auto">
+          <h2 className="text-2xl font-bold mb-4 text-[#3E3A74]">
             Lowongan tidak ditemukan
           </h2>
-          <p className="text-gray mb-6">
+          <p className="text-neutral-600 mb-6">
             Maaf, lowongan yang Anda cari tidak tersedia atau telah dihapus.
           </p>
           <Link
             to="/"
-            className="inline-flex items-center text-teal hover:underline"
+            className="inline-flex items-center text-[#3E3A74] hover:underline"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -59,46 +61,36 @@ const JobDetail = () => {
         }}
       >
         {/* Job header */}
-        <div className="card p-6 md:p-8 mb-8">
+        <div className="bg-[#FAF9F6] p-6 md:p-8 rounded-xl shadow-card mb-8">
           <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-6">
             <div>
-              <h1 className="text-3xl font-bold mb-2 text-dark-teal">
+              <h1 className="text-3xl font-bold mb-2 text-[#3E3A74]">
                 {job.position}
               </h1>
               <div className="mb-4">
-                <span className="text-xl font-medium text-teal">
+                <span className="text-xl font-medium text-[#3E3A74]/80">
                   {job.company}
                 </span>
-                <div className="text-gray mt-1 flex items-center flex-wrap gap-2">
+                <div className="text-neutral-600 mt-1 flex items-center flex-wrap gap-2">
                   <span>{job.location}</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-gray"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-400"></span>
                   <span>{job.type}</span>
                 </div>
-                <div className="text-orange font-medium mt-2">{job.salary}</div>
+                <div className="text-[#FFC857] font-medium mt-2">
+                  {job.salary}
+                </div>
               </div>
 
               <div className="flex flex-wrap gap-2 mt-4">
-                {isRemote && <span className="badge badge-remote">Remote</span>}
-                <span className="badge badge-fulltime">{job.type}</span>
-                <span
-                  className="badge"
-                  style={{
-                    backgroundColor: "var(--color-light-teal)",
-                    color: "var(--color-dark-teal)",
-                  }}
-                >
-                  Posted: {job.postedDate}
-                </span>
+                {isRemote && <Badge variant="accent">Remote</Badge>}
+                <Badge>{job.type}</Badge>
+                <Badge variant="default">Posted: {job.postedDate}</Badge>
               </div>
             </div>
 
             <div className="flex flex-col gap-3">
-              <button className="btn btn-secondary px-8 py-3 rounded-full font-medium">
-                Apply Now
-              </button>
-              <button className="btn btn-outline px-8 py-3 rounded-full font-medium">
-                Save Job
-              </button>
+              <Button variant="secondary">Apply Now</Button>
+              <Button variant="outline">Save Job</Button>
             </div>
           </div>
         </div>
@@ -107,16 +99,16 @@ const JobDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             {/* Description */}
-            <div className="card p-6 md:p-8">
-              <h2 className="text-2xl font-bold mb-4 text-dark-teal">
+            <div className="bg-[#FAF9F6] p-6 md:p-8 rounded-xl shadow-card">
+              <h2 className="text-2xl font-bold mb-4 text-[#3E3A74]">
                 Deskripsi Pekerjaan
               </h2>
-              <p className="text-gray">{job.description}</p>
+              <p className="text-neutral-600">{job.description}</p>
             </div>
 
             {/* Requirements */}
-            <div className="card p-6 md:p-8">
-              <h2 className="text-2xl font-bold mb-4 text-dark-teal">
+            <div className="bg-[#FAF9F6] p-6 md:p-8 rounded-xl shadow-card">
+              <h2 className="text-2xl font-bold mb-4 text-[#3E3A74]">
                 Persyaratan
               </h2>
               <ul className="space-y-3">
@@ -124,7 +116,7 @@ const JobDetail = () => {
                   <li key={index} className="flex items-start">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 text-teal mt-0.5 mr-3 flex-shrink-0"
+                      className="h-5 w-5 text-[#3E3A74] mt-0.5 mr-3 flex-shrink-0"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -134,7 +126,7 @@ const JobDetail = () => {
                         clipRule="evenodd"
                       />
                     </svg>
-                    <span className="text-gray">{req}</span>
+                    <span className="text-neutral-600">{req}</span>
                   </li>
                 ))}
               </ul>
@@ -143,34 +135,25 @@ const JobDetail = () => {
 
           {/* Sidebar */}
           <div className="space-y-6">
-            <div className="card p-6">
-              <h3 className="text-lg font-bold mb-4 text-dark-teal">
+            <div className="bg-[#FAF9F6] p-6 rounded-xl shadow-card">
+              <h3 className="text-lg font-bold mb-4 text-[#3E3A74]">
                 Tentang Perusahaan
               </h3>
-              <p className="text-gray mb-4">
+              <p className="text-neutral-600 mb-4">
                 {job.company} adalah perusahaan terkemuka di bidangnya dengan
                 budaya kerja yang dinamis dan inklusif.
               </p>
-              <a href="#" className="text-teal hover:underline">
+              <a href="#" className="text-[#3E3A74] hover:underline">
                 Kunjungi website
               </a>
             </div>
 
-            <div
-              className="p-6 rounded-2xl shadow-md"
-              style={{ backgroundColor: "var(--color-light-teal)" }}
-            >
-              <h3 className="text-lg font-bold mb-4 text-dark-teal">
+            <div className="bg-[#3E3A74]/5 p-6 rounded-xl shadow-card">
+              <h3 className="text-lg font-bold mb-4 text-[#3E3A74]">
                 Bagikan Lowongan
               </h3>
               <div className="flex space-x-3">
-                <button
-                  className="p-2 rounded-full hover:opacity-70 transition"
-                  style={{
-                    backgroundColor: "var(--color-cream)",
-                    color: "var(--color-dark-teal)",
-                  }}
-                >
+                <button className="p-2 rounded-full bg-[#FAF9F6] text-[#3E3A74] hover:bg-[#3E3A74]/10 transition">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
@@ -180,13 +163,7 @@ const JobDetail = () => {
                     <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
                   </svg>
                 </button>
-                <button
-                  className="p-2 rounded-full hover:opacity-70 transition"
-                  style={{
-                    backgroundColor: "var(--color-cream)",
-                    color: "var(--color-dark-teal)",
-                  }}
-                >
+                <button className="p-2 rounded-full bg-[#FAF9F6] text-[#3E3A74] hover:bg-[#3E3A74]/10 transition">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
@@ -196,13 +173,7 @@ const JobDetail = () => {
                     <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
                   </svg>
                 </button>
-                <button
-                  className="p-2 rounded-full hover:opacity-70 transition"
-                  style={{
-                    backgroundColor: "var(--color-cream)",
-                    color: "var(--color-dark-teal)",
-                  }}
-                >
+                <button className="p-2 rounded-full bg-[#FAF9F6] text-[#3E3A74] hover:bg-[#3E3A74]/10 transition">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
@@ -215,42 +186,42 @@ const JobDetail = () => {
               </div>
             </div>
 
-            <div className="card p-6">
-              <h3 className="text-lg font-bold mb-4 text-dark-teal">
+            <div className="bg-[#FAF9F6] p-6 rounded-xl shadow-card">
+              <h3 className="text-lg font-bold mb-4 text-[#3E3A74]">
                 Lowongan Serupa
               </h3>
               <ul className="space-y-4">
                 <li>
                   <Link
                     to="/jobs/2"
-                    className="block hover:bg-light-teal hover:bg-opacity-30 p-3 rounded-lg transition"
+                    className="block hover:bg-[#3E3A74]/5 p-3 rounded-lg transition"
                   >
-                    <h4 className="font-medium text-dark-teal">
+                    <h4 className="font-medium text-[#3E3A74]">
                       UI/UX Designer
                     </h4>
-                    <p className="text-teal text-sm">Creative Agency</p>
+                    <p className="text-[#3E3A74]/80 text-sm">Creative Agency</p>
                   </Link>
                 </li>
                 <li>
                   <Link
                     to="/jobs/3"
-                    className="block hover:bg-light-teal hover:bg-opacity-30 p-3 rounded-lg transition"
+                    className="block hover:bg-[#3E3A74]/5 p-3 rounded-lg transition"
                   >
-                    <h4 className="font-medium text-dark-teal">
+                    <h4 className="font-medium text-[#3E3A74]">
                       Product Designer
                     </h4>
-                    <p className="text-teal text-sm">Tech Company</p>
+                    <p className="text-[#3E3A74]/80 text-sm">Tech Company</p>
                   </Link>
                 </li>
                 <li>
                   <Link
                     to="/jobs/4"
-                    className="block hover:bg-light-teal hover:bg-opacity-30 p-3 rounded-lg transition"
+                    className="block hover:bg-[#3E3A74]/5 p-3 rounded-lg transition"
                   >
-                    <h4 className="font-medium text-dark-teal">
+                    <h4 className="font-medium text-[#3E3A74]">
                       Graphic Designer
                     </h4>
-                    <p className="text-teal text-sm">Marketing Firm</p>
+                    <p className="text-[#3E3A74]/80 text-sm">Marketing Firm</p>
                   </Link>
                 </li>
               </ul>

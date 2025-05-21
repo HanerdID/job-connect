@@ -1,65 +1,70 @@
-// src/components/JobCard.jsx
-import { Link } from "react-router-dom";
+// src/components/organisms/JobCard.jsx
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
-const JobCard = ({ job, index }) => {
+const JobCard = ({ job, index = 0 }) => {
   const cardRef = useRef(null);
 
-  // Add animation effect on mount
   useEffect(() => {
     const card = cardRef.current;
     if (card) {
       card.style.opacity = "0";
       card.style.transform = "translateY(20px)";
 
-      // Staggered animation based on index
       setTimeout(() => {
-        card.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+        card.style.transition = "all 0.5s ease";
         card.style.opacity = "1";
         card.style.transform = "translateY(0)";
       }, 100 * (index % 4));
     }
   }, [index]);
 
-  // Determine if job is remote or has a special tag
-  const isRemote = job.location.toLowerCase().includes("remote");
-  const jobType = job.type || "Full-time";
+  // Determine if job is remote
+  const isRemote = job.location?.toLowerCase().includes("remote");
 
   return (
-    <div ref={cardRef} className="card p-6 group">
+    <div ref={cardRef} className="card p-6">
       <div className="flex justify-between items-start">
         <div>
-          <h3 className="text-xl font-bold text-dark-teal mb-1 group-hover:text-blue-teal transition-colors">
+          <h3 className="text-xl font-bold text-[#3E3A74] mb-1 group-hover:opacity-80 transition-colors">
             {job.position}
           </h3>
-          <div className="flex items-center">
-            <p className="text-blue-teal font-medium">{job.company}</p>
-            <span className="inline-block mx-2 w-1 h-1 rounded-full bg-blue-teal"></span>
-            <p className="text-gray">{job.location}</p>
+          <div className="flex items-center flex-wrap">
+            <p className="text-[#3E3A74]/80 font-medium">{job.company}</p>
+            <span className="inline-block mx-2 w-1 h-1 rounded-full bg-[#3E3A74]/50"></span>
+            <p className="text-gray-600">{job.location}</p>
           </div>
         </div>
 
         {/* Job tags */}
         <div>
-          {isRemote && <span className="badge badge-remote">Remote</span>}
-          {!isRemote && <span className="badge badge-fulltime">{jobType}</span>}
+          {isRemote && (
+            <span className="inline-block rounded-full text-xs font-medium px-3 py-1 bg-[#FFC857] text-[#3E3A74]">
+              Remote
+            </span>
+          )}
+          {!isRemote && (
+            <span className="inline-block rounded-full text-xs font-medium px-3 py-1 bg-[#FAF9F6] text-[#3E3A74] border border-indigo/20">
+              {job.type || "Full-time"}
+            </span>
+          )}
         </div>
       </div>
 
       {/* Salary info */}
-      <div className="my-3 text-dark-orange font-medium">
+      <div className="my-3 text-[#FFC857] font-medium">
         {job.salary || "Rp 8.000.000 - 12.000.000"}
       </div>
 
       {/* Short description */}
-      <p className="text-gray mb-4 line-clamp-2 text-sm">
+      <p className="text-gray-600 mb-4 line-clamp-2 text-sm">
         {job.description?.substring(0, 120)}...
       </p>
 
       <div className="mt-4 flex justify-between items-center">
         <Link
           to={`/jobs/${job.id}`}
-          className="text-blue-teal hover:underline transition flex items-center"
+          className="text-[#3E3A74] hover:opacity-80 hover:underline transition flex items-center text-sm"
         >
           Details
           <svg
@@ -78,14 +83,14 @@ const JobCard = ({ job, index }) => {
 
         <Link
           to={`/jobs/${job.id}/apply`}
-          className="btn btn-primary py-2 px-5 text-sm"
+          className="btn btn-primary text-sm px-4 py-2"
         >
           Apply
         </Link>
       </div>
 
-      {/* Posted date - small badge at bottom */}
-      <div className="absolute bottom-3 left-6 text-xs text-gray">
+      {/* Posted date */}
+      <div className="absolute bottom-3 left-6 text-xs text-gray-500">
         {job.postedDate || "2 hari lalu"}
       </div>
     </div>

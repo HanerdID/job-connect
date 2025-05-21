@@ -1,70 +1,60 @@
-// src/components/Hero.jsx
-import React from "react";
+// src/components/templates/Hero.jsx
 import { Link } from "react-router-dom";
-import FloatingCards from "./FloatingCards";
+import Button from "../atoms/Button";
 
 const Hero = () => {
   return (
-    <div className="hero-section bg-gradient-to-b from-cream to-light-teal relative overflow-hidden">
+    <div className="bg-[#3E3A74]/5 relative overflow-hidden">
       <div className="container mx-auto px-4 py-16 md:py-24">
         <div className="flex flex-col md:flex-row items-center">
           {/* Text content */}
           <div className="w-full md:w-1/2 z-10">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-dark-teal mb-4">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#3E3A74] mb-4">
               Temukan Karir Impian <br className="hidden md:block" />
-              <span className="text-blue-teal">Anda Sekarang!</span>
+              <span className="text-[#FFC857]">Anda Sekarang!</span>
             </h1>
-            <p className="text-gray mb-8 max-w-md">
+            <p className="text-neutral-600 mb-8 max-w-md">
               Hubungkan karir dan passion Anda dengan ribuan peluang kerja di
               Indonesia yang sesuai dengan keahlian Anda.
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                to="/jobs"
-                className="btn btn-primary px-8 py-3 text-center"
-              >
+              <Button as={Link} to="/jobs" variant="primary">
                 Temukan Pekerjaan
-              </Link>
-              <Link
-                to="/companies"
-                className="btn btn-secondary px-8 py-3 text-center"
-              >
+              </Button>
+              <Button as={Link} to="/companies" variant="secondary">
                 Perusahaan
-              </Link>
+              </Button>
             </div>
 
             {/* Statistics */}
             <div className="flex gap-8 mt-10">
               <div>
-                <h3 className="text-2xl font-bold text-dark-teal">1,200+</h3>
-                <p className="text-gray">Pekerjaan Aktif</p>
+                <h3 className="text-2xl font-bold text-[#3E3A74]">1,200+</h3>
+                <p className="text-neutral-600">Pekerjaan Aktif</p>
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-dark-teal">400+</h3>
-                <p className="text-gray">Perusahaan</p>
+                <h3 className="text-2xl font-bold text-[#3E3A74]">400+</h3>
+                <p className="text-neutral-600">Perusahaan</p>
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-dark-teal">3,000+</h3>
-                <p className="text-gray">Kandidat Terbantu</p>
+                <h3 className="text-2xl font-bold text-[#3E3A74]">3,000+</h3>
+                <p className="text-neutral-600">Kandidat Terbantu</p>
               </div>
             </div>
           </div>
 
           {/* Image */}
-          <div className="w-full md:w-2/3 mt-10 md:mt-0 z-10 rounded-lg shadow-lg overflow-hidden">
+          <div className="w-full md:w-2/5 mt-10 md:mt-0 z-10 rounded-lg shadow-card overflow-hidden">
             <img
-              src="images/jobconnect-illustration.png"
-              alt="JobConnect Illustration"
-              className="w-full"
+              src="/images/jobConnect-hero.png"
+              alt="JobConnect Logo"
+              className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>
         </div>
       </div>
-
-      {/* Background Elements */}
-      <FloatingCards />
 
       {/* Bottom curve */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden">
