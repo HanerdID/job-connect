@@ -27,6 +27,25 @@ const CompanyCard = ({
     }
   }, [index]);
 
+  // Function to get the company logo based on company name
+  const getCompanyLogo = () => {
+    // Convert company name to lowercase and remove spaces
+    const companySlug = company.toLowerCase().replace(/\s+/g, "");
+
+    // Try to get the image dynamically
+    try {
+      // First attempt - try with the company slug
+      return `/images/${companySlug}.webp`;
+    } catch (error) {
+      // If that fails, use a fallback
+      console.log(`Could not load image for ${company}`);
+      return null;
+    }
+  };
+
+  // Get the logo path
+  const logoPath = getCompanyLogo();
+
   return (
     <Link to="/" className="block">
       <div
@@ -41,12 +60,26 @@ const CompanyCard = ({
 
         <div className="flex items-start">
           {/* Logo */}
-          <div className="flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center font-bold text-2xl mr-4 bg-[#3E3A74] text-white">
-            {letter}
+          <div className="flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center overflow-hidden bg-none border-2 border-black text-white">
+            {logoPath ? (
+              <img
+                src={logoPath}
+                alt={`${company} logo`}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  // If image fails to load, show the first letter of the company name
+                  e.target.style.display = "none";
+                  e.target.parentNode.innerHTML = company.charAt(0);
+                }}
+              />
+            ) : (
+              // Show first letter if no image is available
+              <span className="font-bold text-2xl">{company.charAt(0)}</span>
+            )}
           </div>
 
           {/* Company Info */}
-          <div className="flex-1">
+          <div className="flex-1 ml-4">
             <h3 className="font-bold text-lg text-[#3E3A74]">{company}</h3>
             <p className="text-neutral-600 text-sm">{category}</p>
           </div>

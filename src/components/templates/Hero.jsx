@@ -51,6 +51,7 @@ const Hero = () => {
               src="/images/jobConnect-hero.png"
               alt="JobConnect Logo"
               className="w-full h-auto rounded-lg shadow-lg"
+              loading="lazy"
             />
           </div>
         </div>
