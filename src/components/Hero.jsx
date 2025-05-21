@@ -55,7 +55,7 @@ const Hero = () => {
           {/* Image */}
           <div className="w-full md:w-2/3 mt-10 md:mt-0 z-10 rounded-lg shadow-lg overflow-hidden">
             <img
-              src="src/assets/jobconnect-illustration.png"
+              src="images/jobconnect-illustration.png"
               alt="JobConnect Illustration"
               className="w-full"
             />
