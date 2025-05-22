@@ -1,15 +1,17 @@
 // src/components/molecules/SectionHeader.jsx
+import { Typography } from "antd";
 
-const SectionHeader = ({ title, subtitle, className = "" }) => {
-  return (
-    <div className={`mb-8 text-center ${className}`}>
-      <h2 className="text-2xl md:text-3xl font-bold mb-2 text-indigo relative inline-block">
-        {title}
-        <span className="absolute -bottom-1 left-0 w-full h-1 bg-[#FFC857] rounded-full"></span>
-      </h2>
-      {subtitle && <p className="text-gray-600 mt-2">{subtitle}</p>}
-    </div>
-  );
-};
+const { Title, Paragraph } = Typography;
+
+const SectionHeader = ({ title, subtitle, className = "" }) => (
+  <div className={className} style={{ textAlign: "center", marginBottom: 48 }}>
+    <Title level={2} style={{ color: "#3E3A74", display: "inline-block" }}>
+      {title}
+    </Title>
+    {subtitle && (
+      <Paragraph style={{ color: "#666", marginTop: 8 }}>{subtitle}</Paragraph>
+    )}
+  </div>
+);
 
 export default SectionHeader;

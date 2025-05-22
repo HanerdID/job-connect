@@ -1,62 +1,67 @@
 // src/components/templates/JobsSection.jsx
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { jobs } from "../../data/jobs";
-import Button from "../atoms/Button";
-import SearchInput from "../molecules/SearchInput";
-import SectionHeader from "../molecules/SectionHeader";
+import { Typography, Row, Col, Input, Space, Button } from "antd";
 import JobCard from "../organisms/JobCard";
+
+const { Title, Paragraph } = Typography;
 
 const JobsSection = () => {
   const [searchParams, setSearchParams] = useState({});
 
-  const handleSearch = (params) => {
-    setSearchParams(params);
-    console.log("Search for:", params);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    // Implementasi filter berdasarkan state searchParams
+    console.log("Search for:", searchParams);
   };
 
   return (
-    <div className="bg-white py-16">
+    <section style={{ backgroundColor: "#FFFFFF", padding: "4rem 0" }}>
       <div className="container mx-auto px-4">
-        <SectionHeader
-          title="Latest Jobs"
-          subtitle="Pekerjaan terbaru yang mungkin sesuai dengan keahlian Anda"
-        />
-
-        <SearchInput onSearch={handleSearch} />
-
-        {/* Job Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-          {jobs.map((job, index) => (
-            <JobCard key={job.id || index} job={job} index={index} />
-          ))}
+        <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+          <Title level={2} style={{ color: "#3E3A74" }}>
+            Latest Jobs
+          </Title>
+          <Paragraph>
+            Pekerjaan terbaru yang mungkin sesuai dengan keahlian Anda
+          </Paragraph>
         </div>
 
-        {/* View All Jobs button */}
-        <div className="text-center mt-10">
-          <Button
-            as={Link}
-            to="/jobs"
-            variant="outline"
-            className="flex items-center mx-auto hover:cursor-pointer"
-          >
-            View All Jobs
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 ml-2"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                clipRule="evenodd"
+        <form onSubmit={handleSearch}>
+          <Row gutter={16} style={{ marginBottom: 24 }}>
+            <Col xs={24} md={10}>
+              <Input
+                placeholder="Posisi atau keyword..."
+                onChange={(e) =>
+                  setSearchParams({ ...searchParams, query: e.target.value })
+                }
               />
-            </svg>
-          </Button>
-        </div>
+            </Col>
+            <Col xs={24} md={10}>
+              <Input
+                placeholder="Lokasi..."
+                onChange={(e) =>
+                  setSearchParams({ ...searchParams, location: e.target.value })
+                }
+              />
+            </Col>
+            <Col xs={24} md={4}>
+              <Button type="primary" htmlType="submit" block>
+                Search
+              </Button>
+            </Col>
+          </Row>
+        </form>
+
+        <Row gutter={[24, 24]}>
+          {jobs.map((job, index) => (
+            <Col key={job.id} xs={24} md={12} lg={8}>
+              <JobCard job={job} />
+            </Col>
+          ))}
+        </Row>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -1,48 +1,57 @@
 // src/pages/Login.jsx
-import Button from "../components/atoms/Button";
-import Input from "../components/atoms/Input";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { Typography, Card, Form, Input, Button, message } from "antd";
+
+const { Title } = Typography;
 
 const Login = () => {
+  const { role } = useAuth();
+  const navigate = useNavigate();
+
+  const onFinish = (values) => {
+    // Validasi dummy berhasil
+    message.success("Login berhasil!");
+    navigate("/choose-role");
+  };
+
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="max-w-md mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-center text-[#3E3A74]">
+    <div className="container mx-auto px-4 py-12 flex justify-center">
+      <Card style={{ width: 400 }}>
+        <Title level={3} style={{ textAlign: "center", marginBottom: 24 }}>
           Login
-        </h1>
-        <div className="bg-[#FAF9F6] rounded-xl shadow-card p-6">
-          <form>
-            <div className="mb-4">
-              <label
-                className="block text-[#3E3A74] font-medium mb-2"
-                htmlFor="email"
-              >
-                Email
-              </label>
-              <Input type="email" id="email" placeholder="nama@example.com" />
-            </div>
-            <div className="mb-6">
-              <label
-                className="block text-[#3E3A74] font-medium mb-2"
-                htmlFor="password"
-              >
-                Password
-              </label>
-              <Input type="password" id="password" placeholder="••••••••" />
-            </div>
-            <Button variant="secondary" className="w-full">
-              Login
-            </Button>
-          </form>
-          <div className="mt-4 text-center text-neutral-600">
-            <p>
-              Belum punya akun?{" "}
-              <span className="text-[#3E3A74] cursor-pointer hover:underline">
-                Register
-              </span>
-            </p>
-          </div>
-        </div>
-      </div>
+        </Title>
+        <Form layout="vertical" onFinish={onFinish}>
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              { required: true, message: "Email wajib diisi" },
+              {
+                type: "email",
+                message: "Format email tidak valid",
+              },
+            ]}
+          >
+            <Input type="email" placeholder="nama@example.com" />
+          </Form.Item>
+
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              { required: true, message: "Password wajib diisi" },
+              { min: 6, message: "Password minimal 6 karakter" },
+            ]}
+          >
+            <Input.Password placeholder="••••••••" />
+          </Form.Item>
+
+          <Button type="primary" htmlType="submit" block>
+            Masuk
+          </Button>
+        </Form>
+      </Card>
     </div>
   );
 };
