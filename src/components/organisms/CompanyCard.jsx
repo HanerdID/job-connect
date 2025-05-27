@@ -3,7 +3,7 @@ import { Card, Avatar, Typography, Tag, Row, Col } from "antd";
 
 const { Title, Text } = Typography;
 
-const CompanyCard = ({ company, category, positions, isFeatured }) => {
+const CompanyCard = ({ company, category, positions }) => {
   const logoPath = `/images/${company.toLowerCase().replace(/\s+/g, "")}.webp`;
 
   return (
@@ -11,7 +11,7 @@ const CompanyCard = ({ company, category, positions, isFeatured }) => {
       hoverable
       style={{ borderRadius: 12 }}
       bodyStyle={{ padding: 20 }}
-      extra={isFeatured && <Tag color="gold">Featured</Tag>}
+      // extra={isFeatured && <Tag color="gold">Featured</Tag>}
     >
       <Row gutter={16} align="middle">
         <Col>
